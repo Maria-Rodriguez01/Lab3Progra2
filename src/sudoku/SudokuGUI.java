@@ -1,24 +1,19 @@
+package sudoku;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.Border;
 
-public class SudokuGUI {
-    private JDialog dialog;
+public class SudokuGUI extends JFrame {
     private JPanel panelPrincipal;
     private JTextField[][] celdas;
 
     public SudokuGUI() {
-        dialog = new JDialog();
-        dialog.setTitle("Sudoku");
-        dialog.setSize(400, 400);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setTitle("Sudoku");
+        setSize(400, 400);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         panelPrincipal = new JPanel(new GridLayout(9, 9));
         celdas = new JTextField[9][9];
 
@@ -58,15 +53,12 @@ public class SudokuGUI {
         botonSalir.addActionListener(e -> System.exit(0));
         panelBoton.add(botonSalir);
 
-        dialog.setLayout(new BorderLayout());
-        dialog.add(panelPrincipal, BorderLayout.CENTER);
-        dialog.add(panelBoton, BorderLayout.SOUTH);
+        setLayout(new BorderLayout());
+        add(panelPrincipal, BorderLayout.CENTER);
+        add(panelBoton, BorderLayout.SOUTH);
 
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(SudokuGUI::new);
-    }
 }
