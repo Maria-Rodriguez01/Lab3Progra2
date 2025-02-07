@@ -9,7 +9,11 @@ import javax.swing.border.Border;
 public class SudokuGUI extends JFrame {
     private JPanel panelPrincipal;
     private JTextField[][] celdas;
-
+    int[][] board = new int[SudokuGenerator.SIZE][SudokuGenerator.SIZE];
+    
+    SudokuGenerator generator = new Aleatorio();
+    
+    
     public SudokuGUI() {
         setTitle("Sudoku");
         setSize(400, 400);
@@ -17,7 +21,6 @@ public class SudokuGUI extends JFrame {
         panelPrincipal = new JPanel(new GridLayout(9, 9));
         celdas = new JTextField[9][9];
 
-        Border bordeGrueso = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK);
         Border bordeSuperior = BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK);
         Border bordeInferior = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK);
         Border bordeIzquierdo = BorderFactory.createMatteBorder(0, 2, 0, 0, Color.BLACK);
@@ -59,6 +62,46 @@ public class SudokuGUI extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
+        generator.generateSudoku(board);
+        setNum();
+        constante();
+        refresh();
     }
-
+    
+    void setNum () {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != 0) {
+                    celdas [i][j].setText(String.valueOf(board[i][j]));
+                    celdas [i][j].disable();         
+                    celdas[i][j].setBackground(Color.black);
+                }
+            }
+        }
+    }
+    
+    void constante() {
+        while (true){
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    
+                    if (celdas[i][j].getText().equals("")){
+                        celdas[i][j].setBackground(Color.WHITE);
+                    } else { 
+                        try {
+                        board[i][j] = Integer.parseInt(celdas[i][j].getText());
+                        }catch (NumberFormatException e) {celdas[i][j].setBackground(Color.red);}
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    void validar () {}
+    
+    void refresh () {
+        revalidate();
+        repaint();
+    }
 }

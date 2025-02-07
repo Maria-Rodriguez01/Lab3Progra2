@@ -16,14 +16,14 @@ public class Aleatorio extends SudokuGenerator {
     @Override
     public void generateSudoku(int[][] board) {
         // Intentamos llenar el tablero de Sudoku
-        fillBoard(board);
+        llenarTab(board);
         // Después de generar el tablero, eliminamos algunos números aleatoriamente
-        removeNumbers(board, 40 ); // Aumentamos el número de celdas vacías (ajustable)
+        removerNum(board, 40 ); // Aumentamos el número de celdas vacías (ajustable)
     
     }
 
     // Llenar el tablero con números aleatorios sin violar las reglas del Sudoku
-    private boolean fillBoard(int[][] board) {
+    private boolean llenarTab(int[][] board) {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 if (board[row][col] == 0) {
@@ -38,7 +38,7 @@ public class Aleatorio extends SudokuGenerator {
                     board[row][col] = num;
 
                     // Recursivamente intentamos llenar el siguiente número
-                    if (fillBoard(board)) {
+                    if (llenarTab(board)) {
                         return true;
                     }
 
@@ -51,7 +51,7 @@ public class Aleatorio extends SudokuGenerator {
     }
     
     // Eliminar números aleatorios para dejar espacios vacíos en el tablero
-    private void removeNumbers(int[][] board, int numbersToRemove) {
+    private void removerNum (int[][] board, int numbersToRemove) {
         int count = 0;
         while (count < numbersToRemove) {
             int row = random.nextInt(SIZE);
@@ -63,19 +63,3 @@ public class Aleatorio extends SudokuGenerator {
         }
     }
 }
-
-class main {
-     public static void main(String[] args) {
-        int[][] board = new int[SudokuGenerator.SIZE][SudokuGenerator.SIZE];
-
-        // Creamos un generador de Sudoku aleatorio
-        SudokuGenerator generator = new Aleatorio();
-
-        // Generamos un Sudoku válido
-        generator.generateSudoku(board);
-
-        // Mostramos el tablero generado
-        System.out.println("Tablero de Sudoku generado aleatoriamente:");
-        SudokuGenerator.printBoard(board);
-    }
-    }
